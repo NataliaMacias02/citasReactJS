@@ -1,25 +1,30 @@
-import { useState } from 'react' 
-import './css/App.css'
+import { useState } from 'react';
+import './css/App.css';
+import Formulario from './components/Formulario.jsx';
 
 function App() {
-  const [modalVisisible, setModalVisible] = useState(false)
-
+  const [visible, setVisible] = useState(false);
 
   return (
     <main className="container">
-      <h1 className="title">Administrador de Citas <span className="title-bold">Veterinario</span></h1>
+      <h1 className="titulo">
+        Administrador de Citas <span className="titulo-bold">Veterinario</span>
+      </h1>
       <button
         type='button'
         className='btn-nueva-cita'
-        onClick={() => setModalVisible(true)}
+        onClick={() => setVisible(true)}
       >
         <span className='btn-texto-nueva-cita'>Nueva Cita</span>
       </button>
+      {visible && (
+        <Formulario
+          visible={visible}
+          setVisible={setVisible}
+        />
+      )}
     </main>
   )
 }
 
 export default App
-
-
-// React virtualiza el DOM utilizando hooks
