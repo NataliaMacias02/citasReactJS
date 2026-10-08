@@ -105,17 +105,17 @@
     margin-bottom: 20px;
     background-color: #F59E0B;
     color: #5827A4;
-    padding: 15px;
+    padding: 15px 0px;
     border-radius: 10px;
     border: none;
     font-weight: 900;
     font-size: 16px;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background-color 0.2s ease;
 }
 
 /* hover #D98806 */
 .formulario-btn-submit:hover {
     background-color: #D98806;
+    transition: background-color 0.2s ease;
 }

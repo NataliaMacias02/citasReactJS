@@ -6,36 +6,47 @@ import Paciente from './components/Paciente.jsx';
 function App() {
   const [visible, setVisible] = useState(false);
   const [pacientes, setPacientes] = useState([]);
+
   /**
-   * Definiciones
-   * - Para pasar un state a otro componente HIJO debe ser mediante props
+   * Definiciones:
+   * - Para pasar un state a otro componente HIJO
+   *   debe ser mediante props
    */
 
   return (
     <main className="container">
+
       <h1 className="titulo">
         Administrador de Citas <span className="titulo-bold">Veterinario</span>
       </h1>
+
       <button
-        type='button'
-        className='btn-nueva-cita'
+        type="button"
+        className="btn-nueva-cita"
         onClick={() => setVisible(true)}
       >
-        <span className='btn-texto-nueva-cita'>Nueva Cita</span>
+        <span className="btn-texto-nueva-cita">Nueva Cita</span>
       </button>
 
-      <Paciente/>
-      
+      {pacientes.map((paciente) => (
+        <Paciente
+          setVisible={setVisible}
+          pacientes={pacientes}
+          paciente={paciente}
+        />
+      ))}
+
       {visible && (
         <Formulario
           visible={visible}
           setVisible={setVisible}
-          pacientes={setPacientes}
+          pacientes={pacientes}
           setPacientes={setPacientes}
         />
       )}
+
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
