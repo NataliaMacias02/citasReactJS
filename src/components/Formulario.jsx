@@ -1,10 +1,14 @@
 import '../css/formulario.css';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Paciente from './Paciente';
+
 const Formulario = ({
     visible,
     setVisible,
     pacientes,
-    setPacientes
+    setPacientes,
+    editPaciente,
+    setEditPaciente
 }) => {
 
     //contine el valor del state y se inicializa con un string
@@ -15,6 +19,42 @@ const Formulario = ({
     const [telefono, setTelefono] = useState('');
     const [fechaAlta, setFechaAlta] = useState('');
     const [sintomas, setSintomas] = useState('');
+    const [idPaciente, setIdPaciente] = useState('');
+
+    // Los useEffect se agregan despues de los useState
+    // estructura básica de un useEffect7
+    // antes de que se monte el componente, cuando escucha que un state cambia, antes de que se desmonte
+    useEffect(() => {
+        if (Object.keys(editPaciente).length > 0) {
+            setNombrePaciente(editPaciente.nombrePaciente);
+            setNombrePropietario(editPaciente.nombrePropietario);
+            setCorreo(editPaciente.correo);
+            setTelefono(editPaciente.telefono);
+            setFechaAlta(editPaciente.fechaAlta);
+            setSintomas(editPaciente.sintomas);
+            setIdPaciente(editPaciente.id)
+        } else {
+            resetFormulario();
+            setIdPaciente('');
+        }
+    }, [editPaciente]);
+
+    // función para limpiar el formularió (función genrica)
+    const resetFormulario = () => {
+        setNombrePaciente('');
+        setNombrePropietario('');
+        setCorreo('');
+        setTelefono('');
+        setFechaAlta('');
+        setSintomas('');
+    }
+
+    // función que se asocia al trigger (onChange...)
+    const handleCerrar = () => {
+        setVisible(false);
+        resetFormulario();
+        setEditPaciente({});
+    }
 
     /**
      * Actividad
@@ -66,10 +106,10 @@ const Formulario = ({
         <div className="modal-overlay" role="dialog" aria-modal="true">
             <div className="modal-content">
                 <div className='formulario-contenido'>
-                    <h1 className='formulario-titulo'>Nueva <span className='formulario-titulo-bold'>Cita</span></h1>
+                    <h1 className='formulario-titulo'>{idPaciente ? 'Editar' : 'Nueva'}<span className='formulario-titulo-bold'>Cita</span></h1>
                     <button
                         className='btn-cerrar-modal'
-                        onClick={() => setVisible(false)}
+                        onClick={() => handleCerrar()}
                     >
                         <span className='btn-texto-cerrar-modal'>Cerrar</span>
                     </button>
@@ -163,7 +203,7 @@ const Formulario = ({
                         <button
                             type='submit'
                             className='formulario-btn-submit'
-                        >Agregar Paciente</button>
+                        >{idPaciente ? 'Editar' : 'Agregar'} Paciente</button>
                     </form>
                 </div>
             </div>
@@ -172,3 +212,10 @@ const Formulario = ({
 };
 
 export default Formulario;
+
+/**
+ * callback = espera que retorne algo de una función
+ * e se utiliza cuando hay un evento 
+ * set = modificar, actualizar
+ * primer valor = utilizar
+ */

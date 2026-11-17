@@ -1,8 +1,12 @@
 import '../css/Paciente.css';
 
-
-
-const Paciente = ({ paciente, setVisible }) => {
+const Paciente = ({ 
+    paciente, 
+    pacientes, 
+    setVisible, 
+    eliminarPaciente, 
+    editarPaciente 
+}) => {
 
     //funcion para editar de manera generica
     const handleEditar = () => {
@@ -10,7 +14,16 @@ const Paciente = ({ paciente, setVisible }) => {
         setVisible(true);
         //console.log que imprima el array de tarjetas (pacientes)
         console.log(paciente);
+        // pasamos la función 
+        editarPaciente(paciente.id)
     };
+
+    // función para eliminar
+    const handleEliminar = () => {
+        // tomar la función de eliminar y pasar el id
+        eliminarPaciente(paciente.id);
+    }
+
     return (
         <div className="paciente-card">
             <p className="paciente-label">Paciente:
@@ -25,7 +38,7 @@ const Paciente = ({ paciente, setVisible }) => {
                 >Editar</button>
                 <button
                     className="paciente-btn paciente-btn-eliminar"
-                    onClick={() => setVisible(false)}
+                    onClick={() => handleEliminar()}
                 >Eliminar</button>
             </div>
         </div>
@@ -33,3 +46,5 @@ const Paciente = ({ paciente, setVisible }) => {
 };
 
 export default Paciente;
+
+// on_ = handle ejecuta una acción
